@@ -1,9 +1,12 @@
-from flask import Flask
-app = Flask(__name__)
+from flask_migrate import Migrate, MigrateCommand
+from flask_script import Manager
+from info import create_app, db, redis_store
 
-@app.route('/')
-def hello_world():
-    return 'Hello World!'
+
+app = create_app("development")
+manager = Manager(app)
+Migrate(app. db)
+manager.add_command("db", MigrateCommand)
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    manager.run()
