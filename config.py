@@ -1,6 +1,7 @@
 from redis import StrictRedis
 import logging
 
+
 class Config(object):
     DEBUG = True
     SQLALCHEMY_DATABASE_URI = "mysql://root:1@127.0.0.1:3306/information22"
