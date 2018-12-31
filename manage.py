@@ -1,6 +1,6 @@
 from flask_script import Manager
 from flask_migrate import Migrate, MigrateCommand
-from info import create_app, db, redis_store
+from info import create_app, db, redis_store, models
 import logging
 from flask import current_app
 
