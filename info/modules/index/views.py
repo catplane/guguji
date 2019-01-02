@@ -1,14 +1,15 @@
 from info.modules.index import index_bp
-from flask import current_app
+from flask import current_app, render_template
 from info import redis_store
 
 
-# 2.使用蓝图对象装饰视图函数
 @index_bp.route('/')
 def index():
-    # 使用日志
-    current_app.logger.debug("debug日志信息")
-    # 设置redis键值对数据
-    redis_store.set("name", "laowang")
-    return "index"
+    # 返回渲染模板文件
+    print(current_app.url_map)
+    return render_template("news/index.html")
 
+
+@index_bp.route('/favicon.ico')
+def get_favicon():
+    return current_app.send_static_file("news/favicon.ico")

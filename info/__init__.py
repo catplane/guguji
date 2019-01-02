@@ -36,8 +36,7 @@ def write_log(config_class):
 
 
 # 将app封装起来，给外界调用提供一个接口方法：create_app
-# create_app("development") --- 返回的是开发模式的app对象
-# create_app("production") --- 返回的是线上模式的app对象
+
 def create_app(config_name):
     """
     将与app相关联的配置封装到`工厂方法`中
@@ -48,13 +47,9 @@ def create_app(config_name):
     app = Flask(__name__)
     # 根据development键获取对应的配置类名
     config_class = config_dict[config_name]
-    # DevelopmentConfig ---> 开发模式的app对象
-    # ProductionConfig --->  线上模式的app对象
+
     app.config.from_object(config_class)
 
-
-    # DevelopmentConfig.LOG_LEVEL = DEBUG
-    # ProductionConfig.LOG_LEVEL = ERROR
     # 1.1.记录日志
     write_log(config_class)
 
@@ -71,12 +66,7 @@ def create_app(config_name):
     session["name"] = "laowang" ---->存储到redis ---1号数据库
     """
     # 4.开启后端的CSRF保护机制
-    """
-    # 底层：
-    # 1.提取cookie中的csrf_token的值
-    # 2.提取表单中的csrf_token的值，或者ajax请求的头中的X-CSRFToken键对应的值
-    # 3.对比这两个值是否相等
-    """
+
     CSRFProtect(app)
 
     # 5.借助Session调整flask.session的存储位置到redis中存储
@@ -87,4 +77,6 @@ def create_app(config_name):
     from info.modules.index import index_bp
     app.register_blueprint(index_bp)
 
+    from info.modules.passport import passport_bp
+    app.register_blueprint(passport_bp)
     return app
