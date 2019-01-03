@@ -59,7 +59,7 @@ def create_app(config_name):
 
     # 3.创建redis数据库对象(懒加载的思想)
     global redis_store
-    redis_store = StrictRedis(host=config_class.REDIS_HOST, port=config_class.REDIS_PORT)
+    redis_store = StrictRedis(host=config_class.REDIS_HOST, port=config_class.REDIS_PORT, decode_responses=True)
 
     """
     redis_store.set("age", 18)  ---->存储到redis ---0号数据库
@@ -67,7 +67,7 @@ def create_app(config_name):
     """
     # 4.开启后端的CSRF保护机制
 
-    CSRFProtect(app)
+    # CSRFProtect(app)
 
     # 5.借助Session调整flask.session的存储位置到redis中存储
     Session(app)
