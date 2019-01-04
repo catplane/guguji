@@ -3,3 +3,4 @@
 logs/*
 migrations
 *.py[cod]
+demo.py
