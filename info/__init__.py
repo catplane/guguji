@@ -6,6 +6,7 @@ from flask_session import Session
 from config import config_dict
 import logging
 from logging.handlers import RotatingFileHandler
+from info.utitils.common import do_index_class
 
 # 只是申明了db对象而已，并没有做真实的数据库初始化操作
 
@@ -86,6 +87,7 @@ def create_app(config_name):
 
     from info.modules.passport import passport_bp
     app.register_blueprint(passport_bp)
+    app.add_template_filter(do_index_class, "index_class")
 
 
     return app
