@@ -56,6 +56,14 @@ def login():
     return jsonify(errno=RET.OK, errmsg="OK")
 
 
+@passport_bp.route("/logout", methods=["POST"])
+def logout():
+    session.pop('user_id', None)
+    session.pop('nick_name', None)
+    session.pop('mobile', None)
+    return jsonify(errno=RET.OK, errmsg="OK")
+
+
 @passport_bp.route('/image_code')
 def get_image_code():
     """

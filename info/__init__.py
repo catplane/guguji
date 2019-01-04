@@ -1,7 +1,7 @@
 from flask import Flask, session
 from flask_sqlalchemy import SQLAlchemy
 from redis import StrictRedis
-from flask_wtf.csrf import CSRFProtect
+from flask_wtf.csrf import CSRFProtect, generate_csrf
 from flask_session import Session
 from config import config_dict
 import logging
@@ -66,8 +66,15 @@ def create_app(config_name):
     session["name"] = "laowang" ---->存储到redis ---1号数据库
     """
     # 4.开启后端的CSRF保护机制
+    CSRFProtect(app)
 
-    # CSRFProtect(app)
+    @app.after_request
+    def after_request(response):
+        # 调用函数生成 csrf_token
+        csrf_token = generate_csrf()
+        # 通过 cookie 将值传给前端
+        response.set_cookie("csrf_token", csrf_token)
+        return response
 
     # 5.借助Session调整flask.session的存储位置到redis中存储
     Session(app)
@@ -79,4 +86,6 @@ def create_app(config_name):
 
     from info.modules.passport import passport_bp
     app.register_blueprint(passport_bp)
+
+
     return app

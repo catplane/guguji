@@ -150,6 +150,7 @@ $(function(){
     })
 
 
+
     // TODO 注册按钮点击
     $(".register_form_con").submit(function (e) {
         // 阻止默认提交操作
@@ -262,6 +263,7 @@ function sendSMSCode() {
         url: "/passport/sms_code",
         // 请求类型
         type: "POST",
+
         // 请求数据
         data: param_json,
         // 告知后端请求数据json格式
