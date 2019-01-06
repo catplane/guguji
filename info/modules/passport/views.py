@@ -144,7 +144,7 @@ def register():
     # 1. 获取参数和判断是否有值
     json_data = request.json
     mobile = json_data.get("mobile")
-    sms_code = json_data.get("smscode")
+    sms_code = json_data.get("sms_code")
     password = json_data.get("password")
 
     if not all([mobile, sms_code, password]):
